@@ -24,3 +24,10 @@ def preenche_frota(dic_infos, nome, frota):
     dic_navio['posicoes'] = posicoes
     frota.append(dic_navio)
     return frota
+
+def faz_jogada(tabuleiro, linha, coluna):
+    if tabuleiro[linha][coluna] == 1:
+        tabuleiro[linha][coluna] = 'X'
+    else:
+        tabuleiro[linha][coluna] = '-'
+    return tabuleiro
