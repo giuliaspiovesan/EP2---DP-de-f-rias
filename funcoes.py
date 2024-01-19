@@ -74,3 +74,17 @@ def afundados(frota, tabuleiro):
         if afundou:
             conta_afun += 1
     return conta_afun
+
+def posicao_valida(posicionamento, frota):
+    valida = True
+    posicoes = define_posicoes(posicionamento)
+    for coord in posicoes:
+        if coord[0]<0 or coord[0]>9 or coord[1]<0 or coord[1]>9:
+            valida = False
+    for navio in frota:
+        posicoes2 = navio['posicoes']
+        for posicao in posicoes2:
+            if posicao in posicoes:
+                valida = False
+                break
+    return valida
