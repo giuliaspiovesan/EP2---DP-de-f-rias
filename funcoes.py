@@ -16,3 +16,11 @@ def define_posicoes(dic):
             col += 1
             i += 1
     return saida
+
+def preenche_frota(dic_infos, nome, frota):
+    posicoes = define_posicoes(dic_infos)
+    dic_navio = {}
+    dic_navio['tipo'] = nome
+    dic_navio['posicoes'] = posicoes
+    frota.append(dic_navio)
+    return frota
