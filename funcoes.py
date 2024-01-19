@@ -52,3 +52,25 @@ def posiciona_frota(frota):
             col = coord[1]
             grade[linha][col] = 1
     return grade
+
+def afundados(frota, tabuleiro):
+    conta_afun = 0
+    for navio in frota:
+        posicoes = navio['posicoes']
+        tamanho = len(posicoes)
+        afundou = True 
+        if tamanho == 1:
+            linha = posicoes[0][0]
+            coluna = posicoes[0][1]
+            if tabuleiro[linha][coluna] != 'X':
+                afundou = False
+        elif tamanho >= 2:
+            for coord in posicoes:
+                linha = coord[0]
+                coluna = coord[1]
+                if tabuleiro[linha][coluna] != 'X':
+                    afundou = False
+                    break  
+        if afundou:
+            conta_afun += 1
+    return conta_afun
