@@ -1,6 +1,7 @@
 import random
 
 # PARA TESTAS O SEU CÓDIGO NA ACADEMIA PYTHON SERÁ NECESSÁRIO COLAR AS FUNÇÕES DESENVOLVIDAS AQUI!!!
+import funcoes 
 
 def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
     '''
@@ -60,13 +61,13 @@ def gerando_frota_automaticamente():
             dados_de_posicionamento["linha"] = random.randint(0, 9)
             dados_de_posicionamento["coluna"] = random.randint(0, 9)
 
-            while not posicao_valida(dados_de_posicionamento, frota):
+            while not funcoes.posicao_valida(dados_de_posicionamento, frota):
                 dados_de_posicionamento["orientacao"] = random.choice(
                     ["vertical", "horizontal"])
                 dados_de_posicionamento["linha"] = random.randint(0, 9)
                 dados_de_posicionamento["coluna"] = random.randint(0, 9)
 
-            preenche_frota(dados_de_posicionamento, nome_navio, frota)
+            funcoes.preenche_frota(dados_de_posicionamento, nome_navio, frota)
 
     return frota
 
@@ -76,8 +77,8 @@ frota_jogador = gerando_frota_automaticamente()
 frota_oponente = gerando_frota_automaticamente()
 
 # Criando tabuleiro com as frotas posicionadas
-tabuleiro_jogador = posiciona_frota(frota_jogador)
-tabuleiro_oponente = posiciona_frota(frota_oponente)
+tabuleiro_jogador = funcoes.posiciona_frota(frota_jogador)
+tabuleiro_oponente = funcoes.posiciona_frota(frota_oponente)
 jogando = True
 while jogando:
 
@@ -85,6 +86,44 @@ while jogando:
     print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
 
     # TODO: Implemente aqui a lógica para perguntar a linha que o jogador deseja atirar
+    inter_valido = [0,1,2,3,4,5,6,7,8,9]
+    entradas = []
+    linha = int(input('Digite a linha que deseja atirar: '))
+    while linha not in inter_valido:
+        print('Linha inválida!')
+        linha = int(input('Digite a linha que deseja atirar: '))
     # TODO: Implemente aqui a lógica para perguntar a coluna que o jogador deseja atirar
+    coluna = int(input('Digite a linha que deseja atirar: '))
+    while coluna not in inter_valido:
+        print('Coluna inválida!')
+        coluna = int(input('Digite a linha que deseja atirar: '))
+    
     # TODO: Implemente aqui a lógica para verificar se a linha e coluna não foram escolhidas anteriormente
+    if [linha, coluna] not in entradas:
+        entradas.append([linha,coluna])
+        tabuleiro_oponente = funcoes.faz_jogada(tabuleiro_oponente)
+    else:
+        print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
+        linha = int(input('Digite a linha que deseja atirar: '))
+        while linha not in inter_valido:
+            print('Linha inválida!')
+            linha = int(input('Digite a linha que deseja atirar: '))
+        coluna = int(input('Digite a linha que deseja atirar: '))
+        while coluna not in inter_valido:
+            print('Coluna inválida!')
+            coluna = int(input('Digite a linha que deseja atirar: '))
     # TODO: Implemente aqui a lógica para verificar se o jogador derrubou todos os navios do oponente
+    if funcoes.afundados(frota_oponente, tabuleiro_oponente) == len(frota_oponente):
+        print('Parabéns! Você derrubou todos os navios do seu oponente!')
+        jogando = False
+    else:
+        linha = int(input('Digite a linha que deseja atirar: '))
+    while linha not in inter_valido:
+        print('Linha inválida!')
+        linha = int(input('Digite a linha que deseja atirar: '))
+    # TODO: Implemente aqui a lógica para perguntar a coluna que o jogador deseja atirar
+    coluna = int(input('Digite a linha que deseja atirar: '))
+    while coluna not in inter_valido:
+        print('Coluna inválida!')
+        coluna = int(input('Digite a linha que deseja atirar: '))
+
