@@ -87,6 +87,7 @@ def entrada(n):
     return False    
 
 entradas = []
+entradas_opo = []
 while jogando:
     # Imprimindo tabuleiro
     print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
@@ -113,3 +114,19 @@ while jogando:
     if funcoes.afundados(frota_oponente, tabuleiro_oponente) == len(frota_oponente):
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
+    
+    sorteia = True
+    while sorteia:
+        linha_opo = random.randint(0,9)
+        coluna_opo = random.randint(0,9)
+        opo = [linha_opo, coluna_opo]
+        if opo not in entradas_opo:
+            entradas_opo.append(opo)
+            tabuleiro_jogador = funcoes.faz_jogada(tabuleiro_jogador, linha_opo, coluna_opo)
+            sorteia = False
+    
+    if funcoes.afundados(frota_jogador, tabuleiro_jogador) == len(frota_jogador):
+        print('Xi! O oponente derrubou toda a sua frota =(')
+        jogando = False
+    
+
