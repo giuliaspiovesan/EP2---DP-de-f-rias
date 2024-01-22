@@ -80,50 +80,36 @@ frota_oponente = gerando_frota_automaticamente()
 tabuleiro_jogador = funcoes.posiciona_frota(frota_jogador)
 tabuleiro_oponente = funcoes.posiciona_frota(frota_oponente)
 jogando = True
-while jogando:
+#Função para validar as entradas do jogador:
+def entrada(n):
+    if n in range(0,10):
+        return True
+    return False    
 
+entradas = []
+while jogando:
     # Imprimindo tabuleiro
     print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
-
-    # TODO: Implemente aqui a lógica para perguntar a linha que o jogador deseja atirar
-    inter_valido = [0,1,2,3,4,5,6,7,8,9]
-    entradas = []
-    linha = int(input('Digite a linha que deseja atirar: '))
-    while linha not in inter_valido:
-        print('Linha inválida!')
-        linha = int(input('Digite a linha que deseja atirar: '))
-    # TODO: Implemente aqui a lógica para perguntar a coluna que o jogador deseja atirar
-    coluna = int(input('Digite a linha que deseja atirar: '))
-    while coluna not in inter_valido:
-        print('Coluna inválida!')
-        coluna = int(input('Digite a linha que deseja atirar: '))
-    
-    # TODO: Implemente aqui a lógica para verificar se a linha e coluna não foram escolhidas anteriormente
-    if [linha, coluna] not in entradas:
-        entradas.append([linha,coluna])
-        tabuleiro_oponente = funcoes.faz_jogada(tabuleiro_oponente)
-    else:
-        print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
-        linha = int(input('Digite a linha que deseja atirar: '))
-        while linha not in inter_valido:
+    pergunta = True
+    while pergunta:
+        linha = int(input('Digite a linha: '))
+        while not entrada(linha):
             print('Linha inválida!')
-            linha = int(input('Digite a linha que deseja atirar: '))
-        coluna = int(input('Digite a linha que deseja atirar: '))
-        while coluna not in inter_valido:
+            linha = int(input('Digite a linha: '))
+        coluna = int(input('Digite a coluna: '))
+        while not entrada(coluna):
             print('Coluna inválida!')
-            coluna = int(input('Digite a linha que deseja atirar: '))
-    # TODO: Implemente aqui a lógica para verificar se o jogador derrubou todos os navios do oponente
+            coluna = int(input('Digite a coluna: '))
+
+        
+        tiro = [linha, coluna]
+        if tiro not in entradas:
+            entradas.append(tiro)
+            tabuleiro_oponente = funcoes.faz_jogada(tabuleiro_oponente, linha, coluna)
+            pergunta = False
+        else:
+            print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
+
     if funcoes.afundados(frota_oponente, tabuleiro_oponente) == len(frota_oponente):
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
-    else:
-        linha = int(input('Digite a linha que deseja atirar: '))
-    while linha not in inter_valido:
-        print('Linha inválida!')
-        linha = int(input('Digite a linha que deseja atirar: '))
-    # TODO: Implemente aqui a lógica para perguntar a coluna que o jogador deseja atirar
-    coluna = int(input('Digite a linha que deseja atirar: '))
-    while coluna not in inter_valido:
-        print('Coluna inválida!')
-        coluna = int(input('Digite a linha que deseja atirar: '))
-
