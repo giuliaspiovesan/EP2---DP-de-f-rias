@@ -114,6 +114,7 @@ while jogando:
     if funcoes.afundados(frota_oponente, tabuleiro_oponente) == len(frota_oponente):
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
+        break
     
     sorteia = True
     while sorteia:
@@ -123,11 +124,10 @@ while jogando:
         if opo not in entradas_opo:
             entradas_opo.append(opo)
             tabuleiro_jogador = funcoes.faz_jogada(tabuleiro_jogador, linha_opo, coluna_opo)
+            print(f'Seu oponente está atacando na linha {linha_opo} e coluna {coluna_opo}')
             sorteia = False
     
     if funcoes.afundados(frota_jogador, tabuleiro_jogador) == len(frota_jogador):
         print('Xi! O oponente derrubou toda a sua frota =(')
         jogando = False
     
-    
-
